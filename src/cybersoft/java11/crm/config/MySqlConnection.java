@@ -22,7 +22,9 @@ public class MySqlConnection {
 			// TODO:
 			e.printStackTrace();
 			System.out.println("Can not connect to database.");
-		}
+			System.out.println("Driver not found");
+			e.printStackTrace();
+		} 
 		return null;
 	}
 }
