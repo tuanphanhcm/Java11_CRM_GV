@@ -16,8 +16,8 @@ public class Task {
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.startDate = start_date;
-		this.dueDate = due_date;
+		this.startDate = startDate;
+		this.dueDate = dueDate;
 	}
 	public int getId() {
 		return id;
