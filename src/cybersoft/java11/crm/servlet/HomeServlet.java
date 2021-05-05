@@ -15,7 +15,8 @@ import javax.servlet.http.HttpSession;
 import cybersoft.java11.crm.biz.HomeBiz;
 
 @WebServlet(name = "homeServlet", urlPatterns = {
-		"/health"
+		"/health",
+		"/home"
 })
 public class HomeServlet extends HttpServlet {
 	private HomeBiz biz;
@@ -67,5 +68,7 @@ public class HomeServlet extends HttpServlet {
 			resp.getWriter().append("Connection to database has been made successfully.");
 		else
 			resp.getWriter().append("Connection to database has been made unsuccessfully.");
+		
+		req.getRequestDispatcher("/WEB-INF/home/index.jsp").forward(req, resp);
 	}
 }
