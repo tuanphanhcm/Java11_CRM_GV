@@ -11,9 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import cybersoft.java11.crm.biz.RoleBiz;
 import cybersoft.java11.crm.model.Role;
+import cybersoft.java11.crm.utils.JspPathConst;
+import cybersoft.java11.crm.utils.UrlConst;
 
 @WebServlet(name = "roleServlet", urlPatterns = {
-		"/roles"
+		UrlConst.ROLE_DASHBOARD,
+		UrlConst.ROLE_ADD,
+		UrlConst.ROLE_UPDATE,
+		UrlConst.ROLE_DELETE
 })
 public class RoleServlet extends HttpServlet {
 	private RoleBiz biz;
@@ -30,8 +35,9 @@ public class RoleServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		List<Role> listRole = biz.findAll();
 		
-		for(Role role : listRole) {
-			resp.getWriter().append(role.toString());
-		}
+		req.setAttribute("role", listRole.get(1));
+		req.setAttribute("roles", listRole);
+		
+		req.getRequestDispatcher(JspPathConst.ROLE_DASHBOARD).forward(req, resp);
 	}
 }

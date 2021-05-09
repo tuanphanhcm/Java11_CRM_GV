@@ -12,11 +12,14 @@ import javax.servlet.http.HttpSession;
 
 import cybersoft.java11.crm.biz.AuthBiz;
 import cybersoft.java11.crm.model.User;
+import cybersoft.java11.crm.utils.JspPathConst;
+import cybersoft.java11.crm.utils.UrlConst;
 
 @WebServlet(name = "authServlet", urlPatterns = {
-		"/login",
-		"/logout",
-		"/register"
+		UrlConst.AUTH_LOGIN,
+		UrlConst.AUTH_LOGOUT,
+		UrlConst.AUTH_FORGOT_PASSWORD,
+		UrlConst.AUTH_REGISTER
 })
 public class AuthServlet extends HttpServlet {
 	private AuthBiz biz;
@@ -34,13 +37,17 @@ public class AuthServlet extends HttpServlet {
 		String path = req.getServletPath();
 		
 		switch (path) {
-		case "/login":
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/auth/login.jsp");
-			dispatcher.forward(req, resp);
-			break;
-
-		default:
-			break;
+			case UrlConst.AUTH_LOGIN:
+				RequestDispatcher dispatcher = req.getRequestDispatcher(JspPathConst.AUTH_LOGIN);
+				dispatcher.forward(req, resp);
+				break;
+	
+			case UrlConst.AUTH_LOGOUT:
+				req.getSession().invalidate();
+				resp.sendRedirect(req.getContextPath() + UrlConst.AUTH_LOGIN);
+				break;
+			default:
+				break;
 		}
 	}
 	
@@ -50,30 +57,30 @@ public class AuthServlet extends HttpServlet {
 		String path = req.getServletPath();
 		
 		switch (path) {
-		case "/login":
-			String email = req.getParameter("email");
-			String password = req.getParameter("password");
-			
-			System.out.printf("email: %s, password: %s\n", email, password);
-			
-			User user = biz.login(email, password);
-			
-			if(user != null) { // logged in successfully
-				HttpSession session = req.getSession();
+			case UrlConst.AUTH_LOGIN:
+				String email = req.getParameter("email");
+				String password = req.getParameter("password");
 				
-				session.setAttribute("userId", "" + user.getId());
-				session.setAttribute("fullname", user.getFullname());
-				session.setMaxInactiveInterval(3600);
+				System.out.printf("email: %s, password: %s\n", email, password);
 				
-				resp.sendRedirect(req.getContextPath() + "/home");
-			} else { // logged in fail
-				req.getRequestDispatcher("/WEB-INF/auth/login.jsp").forward(req, resp);
-			}
-			
-			break;
-
-		default:
-			break;
+				User user = biz.login(email, password);
+				
+				if(user != null) { // logged in successfully
+					HttpSession session = req.getSession();
+					
+					session.setAttribute("userId", "" + user.getId());
+					session.setAttribute("fullname", user.getFullname());
+					session.setMaxInactiveInterval(3600);
+					
+					resp.sendRedirect(req.getContextPath() + "/home");
+				} else { // logged in fail
+					req.getRequestDispatcher("/WEB-INF/auth/login.jsp").forward(req, resp);
+				}
+				
+				break;
+	
+			default:
+				break;
 		}
 	}
 }
