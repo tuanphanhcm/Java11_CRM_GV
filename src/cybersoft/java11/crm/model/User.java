@@ -1,6 +1,7 @@
 package cybersoft.java11.crm.model;
 
 public class User {
+	/* properties */
 	private int id;
 	private String email;
 	private String password;

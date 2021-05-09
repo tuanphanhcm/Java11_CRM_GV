@@ -40,4 +40,11 @@ public class Role {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	/* methods */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "" + id + " " + name + " " + description;
+	}
 }
