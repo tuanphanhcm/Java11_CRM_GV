@@ -62,7 +62,8 @@ public class AuthServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				
 				session.setAttribute("userId", "" + user.getId());
-				session.setMaxInactiveInterval(30);
+				session.setAttribute("fullname", user.getFullname());
+				session.setMaxInactiveInterval(3600);
 				
 				resp.sendRedirect(req.getContextPath() + "/home");
 			} else { // logged in fail
