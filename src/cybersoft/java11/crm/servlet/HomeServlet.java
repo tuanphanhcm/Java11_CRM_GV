@@ -17,6 +17,7 @@ import cybersoft.java11.crm.utils.JspPathConst;
 import cybersoft.java11.crm.utils.UrlConst;
 
 @WebServlet(name = "homeServlet", urlPatterns = {
+		// UrlConst.HOME_ROOT,
 		UrlConst.HOME,
 		UrlConst.HEALTH
 })

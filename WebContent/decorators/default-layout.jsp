@@ -28,9 +28,8 @@
 				<!-- HEADER-MENU -->
 		        <jsp:include page="/decorators/components/header-menu.jsp"></jsp:include>
 				<!-- END - HEADER-MENU -->
-				<div class="container page__container">
-					<dec:body />
-				</div>
+				
+				<dec:body />
 			</div>
 			<!-- END - PAGE CONTENT -->
 		</div>
