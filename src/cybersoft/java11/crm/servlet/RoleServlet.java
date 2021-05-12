@@ -33,11 +33,31 @@ public class RoleServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		List<Role> listRole = biz.findAll();
 		
-		req.setAttribute("role", listRole.get(1));
-		req.setAttribute("roles", listRole);
+		String path = req.getServletPath();
 		
-		req.getRequestDispatcher(JspPathConst.ROLE_DASHBOARD).forward(req, resp);
+		switch (path) {
+			case UrlConst.ROLE_DASHBOARD:
+				List<Role> listRole = biz.findAll();
+				
+				req.setAttribute("roles", listRole);
+				
+				req.getRequestDispatcher(JspPathConst.ROLE_DASHBOARD).forward(req, resp);
+				break;
+			case UrlConst.ROLE_ADD:
+				
+				break;
+			case UrlConst.ROLE_UPDATE:
+				
+				break;
+			case UrlConst.ROLE_DELETE:
+				
+				break;
+
+		default:
+			break;
+		}
+		
+		
 	}
 }
