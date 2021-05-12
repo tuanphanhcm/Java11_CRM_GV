@@ -48,10 +48,20 @@ public class RoleServlet extends HttpServlet {
 				req.getRequestDispatcher(JspPathConst.ROLE_ADD).forward(req, resp);
 				break;
 			case UrlConst.ROLE_UPDATE:
+				int id = Integer.parseInt(req.getParameter("id"));
 				
+				Role willBeUpdatedRole = biz.findById(id);
+				
+				req.setAttribute("role", willBeUpdatedRole);
+				
+				req.getRequestDispatcher(JspPathConst.ROLE_UPDATE).forward(req, resp);
 				break;
 			case UrlConst.ROLE_DELETE:
+				int willBeDeletedId = Integer.parseInt(req.getParameter("id"));
 				
+				biz.deleteById(willBeDeletedId);
+				
+				resp.sendRedirect(req.getContextPath() + UrlConst.ROLE_DASHBOARD);
 				break;
 
 		default:
@@ -88,6 +98,30 @@ public class RoleServlet extends HttpServlet {
 				
 				break;
 			case UrlConst.ROLE_UPDATE:
+				String name = req.getParameter("role-name");
+				String description = req.getParameter("role-description");
+				int id = Integer.parseInt(req.getParameter("role-id"));
+				
+				if(name == null || name.equals("")) {
+					req.setAttribute("msg", "Role name can't be empty.");
+					
+					Role needToFixRole = new Role();
+					
+					needToFixRole.setId(id);
+					needToFixRole.setDescription(description);
+					
+					req.setAttribute("role", needToFixRole);
+					
+					req.getRequestDispatcher(JspPathConst.ROLE_UPDATE).forward(req, resp);
+				} else {
+					Role updateRole = new Role();
+					updateRole.setName(name);
+					updateRole.setDescription(description);
+					
+					biz.update(id, updateRole);
+					
+					resp.sendRedirect(req.getContextPath() + UrlConst.ROLE_DASHBOARD);
+				}
 				
 				break;
 			case UrlConst.ROLE_DELETE:
