@@ -10,7 +10,7 @@
             <div>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<c:url value="<%=UrlConst.HOME %>" />">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
                             Role
                         </li>
@@ -19,7 +19,7 @@
                 <h1 class="m-0">Role Dashboard</h1>
             </div>
             <div class="ml-auto">
-                <a href="" class="btn btn-light"><i class="material-icons icon-16pt text-muted mr-1">add</i>
+                <a href="<c:url value="<%=UrlConst.ROLE_ADD %>" />" class="btn btn-light"><i class="material-icons icon-16pt text-muted mr-1">add</i>
     Add</a>
             </div>
         </div>
@@ -31,14 +31,11 @@
 		<table class="table mb-0 thead-border-top-0">
 			<thead>
 				<tr class="row">
-					<th class="col-3">
+					<th class="col-4">
 						Name
 					</th>
-					<th class="col-3">
+					<th class="col-5">
 						Description
-					</th>
-					<th class="col-3">
-						Create Time
 					</th>
 					<th class="col-3">
 						Functions
@@ -48,21 +45,19 @@
 			<tbody>
 				<c:forEach items="${roles}" var="role">
 					<tr class="row">
-						<td class="col-3">
+						<td class="col-4">
 							${role.name}
 						</td>
-						<td class="col-3">
+						<td class="col-5">
 							${role.description}
 						</td>
-						<td class="col-3">
-							just now
-						</td>
+				
 						<td class="col-3 button-list d-flex flex-wrap">
 							<a href="<c:url value="<%=UrlConst.ROLE_UPDATE %>" />?id=${role.id}" class="btn btn-primary">
 	                            <i class="material-icons">edit</i>
 	                        </a>
 	                        <a href="<c:url value="<%=UrlConst.ROLE_DELETE %>" />?id=${role.id}" class="btn btn-danger">
-	                            <i class="material-icons">delete</i>
+	                            <i class="material-icons">delete_forever</i>
 	                        </a>
 						</td>
 					</tr>
